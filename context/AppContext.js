@@ -7,7 +7,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "azure-meadow",
     title: "Azure Meadow",
-    price: "Rs. 5,999",
+    price: "Rs. 6,999",
     category: "Chiffon",
     image: "/DSC08881.webp",
     images: [
@@ -28,7 +28,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "sage-whisper",
     title: "Sage Whisper",
-    price: "Rs. 5,999",
+    price: "Rs. 6,999",
     category: "Chiffon",
     image: "/DSC08961.webp",
     images: [
@@ -49,7 +49,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "ivory-lace",
     title: "Ivory Lace",
-    price: "Rs. 6,999",
+    price: "Rs. 7,999",
     category: "Chikankari",
     image: "/DSC09012.webp",
     images: [
@@ -70,7 +70,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "marigold-bloom",
     title: "Marigold Bloom",
-    price: "Rs. 6,999",
+    price: "Rs. 7,999",
     category: "Chikankari",
     image: "/DSC09123.webp",
     images: [
@@ -91,7 +91,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "forest-edge",
     title: "Forest Edge",
-    price: "Rs. 6,499",
+    price: "Rs. 7,499",
     category: "Cotton",
     image: "/DSC09138.webp",
     images: [
@@ -112,7 +112,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "olive-muse",
     title: "Olive Muse",
-    price: "Rs. 6,499",
+    price: "Rs. 7,499",
     category: "Cotton",
     image: "/DSC09207.webp",
     images: [
@@ -133,7 +133,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "voyager",
     title: "Voyager",
-    price: "Rs. 6,499",
+    price: "Rs. 7,499",
     category: "Cotton",
     image: "/DSC09232.webp",
     images: [
@@ -154,7 +154,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "ruby-luxe",
     title: "Ruby Luxe",
-    price: "Rs. 6,999",
+    price: "Rs. 7,999",
     category: "Chikankari",
     image: "/DSC09301.webp",
     images: [
@@ -175,7 +175,7 @@ export const LEVIOOSA_ARTICLES =
   {
     id: "sandstone",
     title: "Sandstone",
-    price: "Rs. 6,499",
+    price: "Rs. 7,499",
     category: "Cotton",
     image: "/DSC09253.webp",
     images: [
