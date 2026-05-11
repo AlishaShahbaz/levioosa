@@ -74,11 +74,33 @@ export const metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    // Pura tag nahi daalna, sirf content wala code daalna hai
+    google: "sBQOTMbhueFdHSHeQcc6t7-37Gx0cKZBt8UCEXlmf-I",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full antialiased">
+      <head>
+        {/* ✅ 2. Google Analytics Scripts yahan add karein */}
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-NDY45HDVVL"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NDY45HDVVL');
+    `,
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} bg-[#050505] text-white min-h-screen flex flex-col`}>
         <AuthProvider>
           <AppProvider>
@@ -99,7 +121,7 @@ export default function RootLayout({ children }) {
                     url: "https://levioosa.uk",
                     logo: "https://levioosa.uk/logo.png",
                     sameAs: [
-                      "https://instagram.com/levioosa.uk"
+                      "https://instagram.com/levioosa.wear"
                     ],
                     description:
                       "Modern women's fashion brand blending western and eastern styles. Summer 2026 collection launching May 10."

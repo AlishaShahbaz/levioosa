@@ -204,7 +204,7 @@ const ProductDetail = () => {
                   <div className="w-10 h-[1px] bg-orange-500/50" />
 
                   <p className="text-[10px] uppercase tracking-[0.5em] font-black text-orange-500">
-                    Product Details
+                    Product Details & Care
                   </p>
                 </div>
 
