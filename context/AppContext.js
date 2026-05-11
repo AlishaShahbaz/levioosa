@@ -2,10 +2,10 @@
 import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 
 // Static central database array for Levioosa
-export const LEVIOOSA_ARTICLES = 
-[
+export const LEVIOOSA_ARTICLES = [
   {
     id: "azure-meadow",
+    sku: "LV-CHF-101",
     title: "Azure Meadow",
     price: "Rs. 6,990",
     category: "Chiffon",
@@ -16,7 +16,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC088172.webp",
       "/DSC08836.webp"
     ],
-    description: "Crafted from premium breathable chiffon with a soft inner lining, Azure Meadow is designed for effortless elegance. Featuring a flattering V-neckline, delicate front button detailing, and vintage-inspired puff sleeves, this flowing A-line silhouette brings grace and sophistication to every occasion.",
+    description:
+      "Crafted from premium breathable chiffon with a soft inner lining, Azure Meadow is designed for effortless elegance. Featuring a flattering V-neckline, delicate front button detailing, and vintage-inspired puff sleeves, this flowing A-line silhouette brings grace and sophistication to every occasion.",
     details: [
       "Premium breathable chiffon fabric",
       "Soft and comfortable inner lining",
@@ -27,6 +28,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "sage-whisper",
+    sku: "LV-CHF-102",
     title: "Sage Whisper",
     price: "Rs. 6,990",
     category: "Chiffon",
@@ -37,7 +39,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC08921.webp",
       "/DSC08948.webp"
     ],
-    description: "Sage Whisper blends modern sophistication with everyday comfort. Made from lightweight georgette with a soft flowing finish, this outfit features a refined high-neck collar, an elasticated waist for the perfect fit, and wide-leg trousers that create a timeless editorial-inspired look.",
+    description:
+      "Sage Whisper blends modern sophistication with everyday comfort. Made from lightweight georgette with a soft flowing finish, this outfit features a refined high-neck collar, an elasticated waist for the perfect fit, and wide-leg trousers that create a timeless editorial-inspired look.",
     details: [
       "Lightweight premium georgette fabric",
       "Sophisticated high-neck collar design",
@@ -48,6 +51,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "ivory-lace",
+    sku: "LV-CHK-201",
     title: "Ivory Lace",
     price: "Rs. 7,910",
     category: "Chikankari",
@@ -58,7 +62,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09002.webp",
       "/DSC08978.webp"
     ],
-    description: "A timeless expression of understated luxury, Ivory Lace is crafted from pure cotton schifli with intricate chikankari-inspired embroidery. Designed with a relaxed silhouette, scalloped hemline, and tailored straight trousers, this set delivers effortless elegance perfect for warm summer days.",
+    description:
+      "A timeless expression of understated luxury, Ivory Lace is crafted from pure cotton schifli with intricate chikankari-inspired embroidery. Designed with a relaxed silhouette, scalloped hemline, and tailored straight trousers, this set delivers effortless elegance perfect for warm summer days.",
     details: [
       "Pure cotton schifli fabric",
       "Intricate chikankari-inspired embroidery",
@@ -69,6 +74,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "marigold-bloom",
+    sku: "LV-CHK-202",
     title: "Marigold Bloom",
     price: "Rs. 7,910",
     category: "Chikankari",
@@ -79,7 +85,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09114.webp",
       "/DSC09077.webp"
     ],
-    description: "Bright, feminine, and effortlessly graceful — Marigold Bloom is crafted from premium cotton eyelet fabric for a breathable summer feel. Featuring delicate flutter sleeves, a structured collar design, and a flowing tiered silhouette, this statement set is made to stand out beautifully.",
+    description:
+      "Bright, feminine, and effortlessly graceful — Marigold Bloom is crafted from premium cotton eyelet fabric for a breathable summer feel. Featuring delicate flutter sleeves, a structured collar design, and a flowing tiered silhouette, this statement set is made to stand out beautifully.",
     details: [
       "Premium breathable cotton eyelet fabric",
       "Feminine flutter sleeve detailing",
@@ -90,6 +97,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "forest-edge",
+    sku: "LV-CTN-301",
     title: "Forest Edge",
     price: "Rs. 7,460",
     category: "Cotton",
@@ -100,7 +108,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09172.webp",
       "/DSC09162.webp"
     ],
-    description: "Forest Edge combines structure with sophistication. Tailored from premium Irish linen-inspired cotton, this outfit features utility-style flap details, statement contrast buttons, and a flowing pleated lower that creates a refined yet modern silhouette.",
+    description:
+      "Forest Edge combines structure with sophistication. Tailored from premium Irish linen-inspired cotton, this outfit features utility-style flap details, statement contrast buttons, and a flowing pleated lower that creates a refined yet modern silhouette.",
     details: [
       "Premium Irish linen-inspired cotton",
       "Structured utility-style detailing",
@@ -111,6 +120,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "olive-muse",
+    sku: "LV-CTN-302",
     title: "Olive Muse",
     price: "Rs. 7,460",
     category: "Cotton",
@@ -121,7 +131,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09204.webp",
       "/DSC09184.webp"
     ],
-    description: "Minimal yet expressive, Olive Muse is designed for effortless everyday elegance. Crafted from a soft linen-cotton blend, this full-length silhouette features subtle floral detailing on a rich olive base, creating a calm and refined luxury aesthetic.",
+    description:
+      "Minimal yet expressive, Olive Muse is designed for effortless everyday elegance. Crafted from a soft linen-cotton blend, this full-length silhouette features subtle floral detailing on a rich olive base, creating a calm and refined luxury aesthetic.",
     details: [
       "Soft premium linen-cotton blend",
       "Minimalist round neckline design",
@@ -132,6 +143,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "voyager",
+    sku: "LV-CTN-303",
     title: "Voyager",
     price: "Rs. 7,460",
     category: "Cotton",
@@ -142,7 +154,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09239.webp",
       "/DSC09216.webp"
     ],
-    description: "Inspired by timeless travel aesthetics, Voyager features a contemporary boxy silhouette paired with flowing high-waisted trousers. Crafted in soft premium fabric with an exclusive vintage-inspired print, this set delivers effortless sophistication with a modern artistic edge.",
+    description:
+      "Inspired by timeless travel aesthetics, Voyager features a contemporary boxy silhouette paired with flowing high-waisted trousers. Crafted in soft premium fabric with an exclusive vintage-inspired print, this set delivers effortless sophistication with a modern artistic edge.",
     details: [
       "Premium soft-flow fabric finish",
       "Modern boxy-fit silhouette",
@@ -153,6 +166,7 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "ruby-luxe",
+    sku: "LV-CHK-203",
     title: "Ruby Luxe",
     price: "Rs. 7,910",
     category: "Chikankari",
@@ -163,7 +177,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09330.webp",
       "/DSC09325.webp"
     ],
-    description: "Bold yet elegant, Ruby Luxe is designed to make a statement through simplicity. Featuring a textured premium fabric, handcrafted tassel details, dramatic bell sleeves, and flowing wide-leg trousers, this monochromatic set captures timeless confidence and refined femininity.",
+    description:
+      "Bold yet elegant, Ruby Luxe is designed to make a statement through simplicity. Featuring a textured premium fabric, handcrafted tassel details, dramatic bell sleeves, and flowing wide-leg trousers, this monochromatic set captures timeless confidence and refined femininity.",
     details: [
       "Premium self-textured fabric",
       "Handcrafted tassel neckline detailing",
@@ -174,8 +189,9 @@ export const LEVIOOSA_ARTICLES =
 
   {
     id: "sandstone",
+    sku: "LV-CTN-304",
     title: "Sandstone",
-    price: "Rs. 7,460",
+    price: "Rs. 7,910",
     category: "Cotton",
     image: "/DSC09253.webp",
     images: [
@@ -184,7 +200,8 @@ export const LEVIOOSA_ARTICLES =
       "/DSC09286.webp",
       "/DSC09274.webp"
     ],
-    description: "Clean, refined, and effortlessly modern — Sandstone is designed for elevated everyday wear. Featuring a premium polo-style neckline, soft neutral tones, and relaxed straight-fit trousers, this set reflects Levioosa’s signature quiet luxury aesthetic.",
+    description:
+      "Clean, refined, and effortlessly modern — Sandstone is designed for elevated everyday wear. Featuring a premium polo-style neckline, soft neutral tones, and relaxed straight-fit trousers, this set reflects Levioosa’s signature quiet luxury aesthetic.",
     details: [
       "Soft premium cotton blend",
       "Minimal polo collar detailing",
