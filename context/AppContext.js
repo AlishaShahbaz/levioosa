@@ -22,8 +22,12 @@ export const LEVIOOSA_ARTICLES = [
       "Premium breathable chiffon fabric",
       "Soft and comfortable inner lining",
       "Elegant vintage-inspired puff sleeves",
-      "Flattering A-line silhouette"
+      "Flattering A-line silhouette",
+      "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
+    
   },
 
   {
@@ -44,8 +48,10 @@ export const LEVIOOSA_ARTICLES = [
     details: [
       "Lightweight premium georgette fabric",
       "Sophisticated high-neck collar design",
-      "Comfort-fit elasticated waistline",
-      "Flowing wide-leg trousers"
+      "Flowing wide-leg trousers",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -66,9 +72,11 @@ export const LEVIOOSA_ARTICLES = [
       "A timeless expression of understated luxury, Ivory Lace is crafted from pure cotton schifli with intricate chikankari-inspired embroidery. Designed with a relaxed silhouette, scalloped hemline, and tailored straight trousers, this set delivers effortless elegance perfect for warm summer days.",
     details: [
       "Pure cotton schifli fabric",
-      "Intricate chikankari-inspired embroidery",
       "Elegant scalloped hemline",
-      "Relaxed-fit straight trousers"
+      "Relaxed-fit straight trousers",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -89,9 +97,12 @@ export const LEVIOOSA_ARTICLES = [
       "Bright, feminine, and effortlessly graceful — Marigold Bloom is crafted from premium cotton eyelet fabric for a breathable summer feel. Featuring delicate flutter sleeves, a structured collar design, and a flowing tiered silhouette, this statement set is made to stand out beautifully.",
     details: [
       "Premium breathable cotton eyelet fabric",
-      "Feminine flutter sleeve detailing",
+      "Feminine flutter sleeve & collar-style detailing",
       "Elegant collar-style top",
-      "Flowing tiered skirt-inspired silhouette"
+      "Flowing tiered skirt-inspired silhouette",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -112,9 +123,11 @@ export const LEVIOOSA_ARTICLES = [
       "Forest Edge combines structure with sophistication. Tailored from premium Irish linen-inspired cotton, this outfit features utility-style flap details, statement contrast buttons, and a flowing pleated lower that creates a refined yet modern silhouette.",
     details: [
       "Premium Irish linen-inspired cotton",
-      "Structured utility-style detailing",
       "Signature contrast button accents",
-      "Elegant pleated flowing silhouette"
+      "Elegant pleated flowing silhouette",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -137,7 +150,9 @@ export const LEVIOOSA_ARTICLES = [
       "Soft premium linen-cotton blend",
       "Minimalist round neckline design",
       "Exclusive deep olive floral print",
-      "Fluid full-length silhouette"
+      "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -160,7 +175,10 @@ export const LEVIOOSA_ARTICLES = [
       "Premium soft-flow fabric finish",
       "Modern boxy-fit silhouette",
       "High-waisted wide-leg trousers",
-      "Exclusive vintage-inspired print"
+      "Exclusive vintage-inspired print",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -180,10 +198,13 @@ export const LEVIOOSA_ARTICLES = [
     description:
       "Bold yet elegant, Ruby Luxe is designed to make a statement through simplicity. Featuring a textured premium fabric, handcrafted tassel details, dramatic bell sleeves, and flowing wide-leg trousers, this monochromatic set captures timeless confidence and refined femininity.",
     details: [
-      "Premium self-textured fabric",
+      "Premium self-textured Chikankari fabric",
       "Handcrafted tassel neckline detailing",
       "Statement bell sleeve silhouette",
-      "Wide-leg monochromatic trousers"
+      "Wide-leg monochromatic trousers",
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   },
 
@@ -206,7 +227,9 @@ export const LEVIOOSA_ARTICLES = [
       "Soft premium cotton blend",
       "Minimal polo collar detailing",
       "Relaxed straight-fit trousers",
-      "Signature neutral luxury tones"
+       "Do not bleach",
+      "Dry Clean Only", 
+      "Do not wring",
     ]
   }
 ];

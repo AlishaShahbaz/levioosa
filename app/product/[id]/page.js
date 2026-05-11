@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useParams } from "next/navigation";
 import { useCart } from "../../../context/CartContext";
 import { LEVIOOSA_ARTICLES } from "../../../context/AppContext";
+import { Heart, Share2 } from "lucide-react";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ const ProductDetail = () => {
               >
                 <img
                   src={img}
-                  className="w-full h-full object-cover transition-all duration-700"
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   alt="View"
                 />
               </div>
@@ -120,28 +121,60 @@ const ProductDetail = () => {
           {/* RIGHT: Product Info */}
           <div className="lg:col-span-6 flex flex-col justify-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-4">
-                {product.title}
-              </h1>
-              <p className="text-3xl text-orange-500 font-light italic tracking-widest mb-8">
-                {product.price}
-              </p>
+              {/* PRODUCT HEADER */}
+              <div className="space-y-5">
+                <div className="flex items-start justify-between gap-6">
+                  <div className="space-y-3">
+                    <p className="text-[10px] uppercase tracking-[0.5em] font-black text-orange-500">
+                      Levioosa Archive
+                    </p>
 
-              <p className="text-white/40 text-base leading-relaxed mb-10 max-w-md font-light">
-                {product.description}
-              </p>
+                    <h1 className="text-4xl md:text-5xl leading-none tracking-tight font-[900] uppercase text-white">
+                      {product.title}
+                    </h1>
+                  </div>
 
-              {/* Size Selection */}
-              <div className="mb-12">
-                <h4 className="text-[9px] uppercase tracking-[0.5em] text-white/20 mb-6 font-black">Dimension Strategy</h4>
-                <div className="flex gap-4">
+                  <button className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center hover:border-orange-500 transition-all duration-500 group">
+                    <Share2 className="w-4 h-4 text-white/40 group-hover:text-orange-500 transition-colors" />
+                  </button>
+                </div>
+
+                <div className="flex items-end justify-between pb-6">
+                  <div className="space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-light italic text-orange-500 tracking-wide">
+                      {product.price}
+                    </h2>
+
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-[1px] bg-orange-500/40" />
+
+                      <p className="text-[10px] uppercase tracking-[0.35em] font-black text-white/30">
+                        SKU : {product.sku}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* SIZE SELECTION */}
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <p className="text-[10px] uppercase tracking-[0.35em] font-black text-white/40">
+                    Selected Size : {selectedSize}
+                  </p>
+
+                  <button className="text-[11px] uppercase tracking-[0.3em] text-white hover:text-orange-500 transition-colors">
+                    Size Guide
+                  </button>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
                   {["S", "M", "L", "XL"].map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`w-14 h-14 rounded-full border text-[11px] font-bold transition-all duration-500 ${selectedSize === size
-                        ? "bg-orange-500 text-white border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)]"
-                        : "border-white/10 text-white/30 hover:border-white/40 bg-white/5"
+                      className={`w-14 h-14 rounded-full border text-[10px] font-black tracking-tighter transition-all duration-500 flex items-center justify-center ${selectedSize === size
+                          ? "bg-orange-500 text-white border-orange-500 shadow-[0_0_25px_rgba(249,115,22,0.3)]"
+                          : "bg-white/5 border-white/10 text-white/40 hover:border-white hover:text-white"
                         }`}
                     >
                       {size}
@@ -150,19 +183,121 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-5">
+              {/* ADD TO CART */}
+              <div className="flex gap-4 pt-4">
                 <button
                   onClick={handleAddToCart}
                   disabled={isAdding}
-                  className="flex-[2] bg-white text-black py-6 rounded-full font-black uppercase text-xs tracking-[0.4em] hover:bg-orange-500 hover:text-white transition-all duration-700 disabled:opacity-50"
+                  className="flex-1 h-16 rounded-full bg-orange-500 text-white text-[11px] font-black uppercase tracking-[0.35em] hover:bg-orange-600 transition-all duration-500 shadow-[0_0_30px_rgba(249,115,22,0.25)] disabled:opacity-50"
                 >
-                  {isAdding ? "Synchronizing..." : "Initialize Order"}
+                  {isAdding ? "Processing..." : "Add To Bag"}
                 </button>
-                <button className="flex-1 border border-white/10 text-white py-6 rounded-full font-black uppercase text-[10px] tracking-[0.4em] hover:bg-white/5 backdrop-blur-md transition-all">
-                  Virtual V-TON
+
+                <button className="w-16 h-16 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center hover:border-red-500 transition-all duration-500 group">
+                  <Heart className="w-5 h-5 text-white/40 group-hover:text-red-500 transition-colors" />
                 </button>
               </div>
+
+              {/* PRODUCT FEATURES */}
+              <div className="pt-10 border-t border-white/5 space-y-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-[1px] bg-orange-500/50" />
+
+                  <p className="text-[10px] uppercase tracking-[0.5em] font-black text-orange-500">
+                    Product Details
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  {product.details?.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-4 text-[10px] uppercase tracking-[0.25em] font-bold text-white/40"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-orange-500/70" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* SOCIALS */}
+              <div className="flex items-center gap-4 pt-8 border-t border-white/5">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-black">
+                  Socials
+                </p>
+
+                <div className="flex gap-3">
+                  {/* Instagram */}
+                  <a
+                    href="https://instagram.com/levioosa.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white/40"
+                    >
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  </a>
+
+                  {/* Facebook */}
+                  <a
+                    href="https://facebook.com/levioosa.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white/40"
+                    >
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                  </a>
+
+                  {/* TikTok */}
+                  <a
+                    href="https://tiktok.com/@levioosa.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white/40"
+                    >
+                      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
             </motion.div>
           </div>
         </div>
