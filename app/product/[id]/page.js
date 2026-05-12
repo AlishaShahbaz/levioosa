@@ -72,51 +72,155 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
           {/* LEFT: Thumbnails */}
-          <div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
-            {product.images?.map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => setActiveImage(idx)}
-                className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${activeImage === idx
-                    ? 'border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]'
-                    : 'border-white/5 opacity-40 hover:opacity-100'
-                  }`}
-              >
-                <img
-                  src={img}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  alt="View"
-                />
-              </div>
-            ))}
-          </div>
+         {/* LEFT: Desktop Thumbnails */}
+<div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
+  {product.images?.map((img, idx) => (
+    <div
+      key={idx}
+      onClick={() => setActiveImage(idx)}
+      className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${
+        activeImage === idx
+          ? "border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+          : "border-white/5 opacity-40 hover:opacity-100"
+      }`}
+    >
+      <img
+        src={img}
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+        alt="View"
+      />
+    </div>
+  ))}
+</div>
 
-          {/* CENTER: Main Image */}
-          <div className="lg:col-span-5">
-            <motion.div
-              className="relative aspect-[3/4] bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 cursor-crosshair group backdrop-blur-sm"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={() => setZoomPos({ ...zoomPos, show: false })}
-            >
-              <img
-                src={product.images?.[activeImage] || product.image}
-                alt={product.title}
-                className={`w-full h-full object-cover transition-transform duration-700 ${zoomPos.show ? 'scale-110 opacity-30' : 'scale-100 opacity-80'}`}
-              />
+{/* CENTER: Main Image + Mobile Slider */}
+{/* LEFT: Desktop Thumbnails */}
+<div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
+  {product.images?.map((img, idx) => (
+    <div
+      key={idx}
+      onClick={() => setActiveImage(idx)}
+      className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${
+        activeImage === idx
+          ? "border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+          : "border-white/5 opacity-40 hover:opacity-100"
+      }`}
+    >
+      <img
+        src={img}
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+        alt="View"
+      />
+    </div>
+  ))}
+</div>
 
-              {zoomPos.show && (
-                <div
-                  className="absolute inset-0 z-30 pointer-events-none"
-                  style={{
-                    backgroundImage: `url(${product.images?.[activeImage] || product.image})`,
-                    backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
-                    backgroundSize: '250%',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                />
-              )}
-            </motion.div>
-          </div>
+{/* CENTER: Main Image + Mobile Slider */}
+<div className="lg:col-span-5">
+
+  {/* MOBILE SLIDER */}
+  <div className="lg:hidden">
+
+    <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar gap-4 pb-3">
+
+      {product.images?.map((img, idx) => (
+        <div
+          key={idx}
+          className="min-w-full snap-center"
+        >
+
+          <motion.div
+            whileTap={{ scale: 0.98 }}
+            className="
+              relative
+              aspect-[3/4]
+              bg-white/5
+              rounded-[2.5rem]
+              overflow-hidden
+              border border-white/10
+              backdrop-blur-sm
+            "
+          >
+
+            <img
+              src={img}
+              alt={product.title}
+              className="w-full h-full object-cover"
+            />
+
+          </motion.div>
+
+        </div>
+      ))}
+
+    </div>
+
+    {/* DOTS */}
+    <div className="flex justify-center gap-2 mt-5">
+
+      {product.images?.map((_, idx) => (
+        <button
+          key={idx}
+          onClick={() => setActiveImage(idx)}
+          className={`transition-all duration-500 rounded-full ${
+            activeImage === idx
+              ? "w-8 h-2 bg-orange-500"
+              : "w-2 h-2 bg-white/20"
+          }`}
+        />
+      ))}
+
+    </div>
+
+  </div>
+
+  {/* DESKTOP IMAGE */}
+  <motion.div
+    className="
+      hidden lg:block
+      relative
+      aspect-[3/4]
+      bg-white/5
+      rounded-[2.5rem]
+      overflow-hidden
+      border border-white/10
+      cursor-crosshair
+      group
+      backdrop-blur-sm
+    "
+    onMouseMove={handleMouseMove}
+    onMouseLeave={() =>
+      setZoomPos({ ...zoomPos, show: false })
+    }
+  >
+
+    <img
+      src={product.images?.[activeImage] || product.image}
+      alt={product.title}
+      className={`w-full h-full object-cover transition-transform duration-700 ${
+        zoomPos.show
+          ? "scale-110 opacity-30"
+          : "scale-100 opacity-80"
+      }`}
+    />
+
+    {zoomPos.show && (
+      <div
+        className="absolute inset-0 z-30 pointer-events-none"
+        style={{
+          backgroundImage: `url(${
+            product.images?.[activeImage] ||
+            product.image
+          })`,
+          backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
+          backgroundSize: "250%",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+    )}
+
+  </motion.div>
+</div>
 
           {/* RIGHT: Product Info */}
           <div className="lg:col-span-6 flex flex-col justify-center">
@@ -325,20 +429,55 @@ const ProductExtraInfo = ({ product }) => {
           </h2>
         </header>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-24">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-12 py-5 rounded-full text-[10px] font-black tracking-[0.3em] transition-all duration-700 border ${activeTab === tab
-                ? "bg-white text-black border-white shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-                : "bg-white/5 text-white/30 border-white/5 hover:border-white/20"
-                }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+       {/* TABS */}
+<div className="flex flex-wrap justify-center gap-4 md:gap-5 mb-16 md:mb-24">
+
+  {tabs.map((tab) => (
+    <button
+      key={tab}
+      onClick={() => setActiveTab(tab)}
+      className={`
+
+        px-8 md:px-12
+        py-4 md:py-5
+
+        rounded-full
+
+        text-[10px]
+        md:text-[10px]
+
+        font-black
+        tracking-[0.25em]
+        uppercase
+
+        transition-all duration-500
+        border
+
+        ${
+          activeTab === tab
+            ? `
+              bg-white
+              text-black
+              border-white
+              shadow-[0_0_30px_rgba(255,255,255,0.08)]
+            `
+            : `
+              bg-white/[0.03]
+              text-white/35
+              border-white/5
+              backdrop-blur-xl
+              hover:border-white/15
+              hover:text-white
+            `
+        }
+
+      `}
+    >
+      {tab}
+    </button>
+  ))}
+
+</div>
 
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
