@@ -20,59 +20,111 @@ const geistMono = Geist_Mono({
 
 // ✅ SEO UPGRADED (REAL, NOT COSMETIC)
 export const metadata = {
-  metadataBase: new URL('https://levioosa.uk'),
+  metadataBase: new URL("https://levioosa.uk"),
 
   title: {
-    default: "Levioosa – Women's Western & Eastern Fusion Wear",
-    template: "%s | Levioosa"
+    default:
+      "Levioosa UK – Luxury Women's Fusion Wear & Modern Fashion",
+    template: "%s | Levioosa UK",
   },
+
   description:
-    "Levioosa is a modern women's fashion brand blending western silhouettes with eastern elegance. Discover the Summer 2026 collection launching May 10.",
+    "Shop luxury women's fusion wear at Levioosa UK. Discover premium eastern and western fashion, modern silhouettes, modest luxury clothing, summer collections, and statement outfits designed for contemporary women.",
 
   keywords: [
-    "women western wear",
-    "fusion clothing women",
-    "pakistani western dresses",
-    "eastern western fusion wear",
-    "summer outfits for women 2026",
-    "levioosa clothing",
-    "women fashion brand pakistan",
-    "modern eastern wear"
+    "Levioosa UK",
+    "women fashion UK",
+    "luxury women's clothing",
+    "fusion wear women",
+    "eastern western fusion fashion",
+    "pakistani fashion brand",
+    "modern modest fashion",
+    "women luxury outfits",
+    "designer women's wear",
+    "summer collection women",
+    "premium eastern wear",
+    "western dresses women",
+    "modest luxury fashion",
+    "fashion boutique UK",
+    "women clothing online",
+    "trendy outfits women",
+    "minimal luxury fashion",
+    "fashion brand pakistan",
+    "women co ord sets",
+    "modern eastern wear",
   ],
 
-  authors: [{ name: "Alishah Shahbaz" }],
-  creator: "Alishah Shahbaz",
+  authors: [
+    {
+      name: "Levioosa",
+      url: "https://levioosa.uk",
+    },
+  ],
+
+  creator: "Levioosa",
   publisher: "Levioosa",
 
+  category: "Fashion",
+
+  alternates: {
+    canonical: "https://levioosa.uk",
+  },
+
   openGraph: {
-    title: "Levioosa Summer '26 – Western × Eastern Fusion",
+    title:
+      "Levioosa UK – Luxury Women's Fusion Fashion",
+
     description:
-      "Step into bold summer fashion. Fusion wear designed for modern women. Summer '26 drops May 10.",
+      "Discover premium fusion fashion for women. Eastern elegance meets western modernity at Levioosa UK.",
+
     url: "https://levioosa.uk",
-    siteName: "Levioosa",
+
+    siteName: "Levioosa UK",
+
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Levioosa Summer Collection",
+        alt: "Levioosa Women's Fashion Collection",
       },
     ],
+
     locale: "en_GB",
+
     type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Levioosa Summer Drop – 10 May",
+
+    title:
+      "Levioosa UK – Luxury Women's Fashion",
+
     description:
-      "Western cuts. Eastern soul. Discover Levioosa's Summer 2026 collection.",
+      "Luxury fusion wear for modern women. Discover Levioosa UK's latest fashion collections.",
+
     images: ["/og-image.jpg"],
+
+    creator: "@levioosa.wear",
   },
 
   robots: {
     index: true,
     follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  verification: {
+    google:
+      "sBQOTMbhueFdHSHeQcc6t7-37Gx0cKZBt8UCEXlmf-I",
   },
 };
 
@@ -113,15 +165,45 @@ export default function RootLayout({ children }) {
                 dangerouslySetInnerHTML={{
                   __html: JSON.stringify({
                     "@context": "https://schema.org",
-                    "@type": "ClothingBrand",
-                    name: "Levioosa",
+
+                    "@type": "ClothingStore",
+
+                    name: "Levioosa UK",
+
+                    image:
+                      "https://levioosa.uk/og-image.jpg",
+
                     url: "https://levioosa.uk",
-                    logo: "https://levioosa.uk/logo.png",
-                    sameAs: [
-                      "https://instagram.com/levioosa.wear"
-                    ],
+
+                    logo:
+                      "https://levioosa.uk/logo.png",
+
                     description:
-                      "Modern women's fashion brand blending western and eastern styles. Summer 2026 collection launching May 10."
+                      "Luxury women's fusion wear brand blending eastern elegance with western silhouettes.",
+
+                    brand: {
+                      "@type": "Brand",
+                      name: "Levioosa",
+                    },
+
+                    sameAs: [
+                      "https://www.instagram.com/levioosa.wear",
+                      "https://www.tiktok.com/@levioosa.wear",
+                      "https://www.facebook.com/share/18bLmmmcp6/",
+                    ],
+
+                    contactPoint: {
+                      "@type": "ContactPoint",
+                      contactType: "customer support",
+                      availableLanguage: [
+                        "English",
+                      ],
+                    },
+
+                    address: {
+                      "@type": "PostalAddress",
+                      addressCountry: "UK",
+                    },
                   }),
                 }}
               />

@@ -3,8 +3,16 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams } from "next/navigation";
 import { useCart } from "../../../context/CartContext";
-import { LEVIOOSA_ARTICLES } from "../../../context/AppContext";
-import { Heart, Share2 } from "lucide-react";
+import {
+  LEVIOOSA_ARTICLES,
+  useApp,
+} from "../../../context/AppContext";
+
+import {
+  Heart,
+  Share2,
+} from "lucide-react";
+
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -26,6 +34,16 @@ const ProductDetail = () => {
   }, [id]);
 
   const { addToCart } = useCart();
+  const {
+    wishlist,
+    removeFromWishlist,
+  } = useApp();
+
+  const isWishlisted =
+    wishlist?.some(
+      (item) =>
+        item.id === product?.id
+    );
 
   const handleAddToCart = async () => {
     if (!product || isAdding) return;
@@ -46,6 +64,113 @@ const ProductDetail = () => {
       setIsAdding(false);
     }
   };
+
+  /* =========================
+   TOGGLE WISHLIST
+========================= */
+
+  const handleWishlist = async () => {
+
+    try {
+
+      if (isWishlisted) {
+
+        const existingItem =
+          wishlist.find(
+            (item) =>
+              item.id === product.id
+          );
+
+        if (existingItem) {
+
+          await removeFromWishlist(
+            existingItem._id ||
+            existingItem.id
+          );
+
+        }
+
+      } else {
+
+        const response =
+          await fetch(
+            "/api/wishlist",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                id: product.id,
+                title:
+                  product.title,
+                price:
+                  product.price,
+                image:
+                  product.images?.[0] ||
+                  product.image,
+              }),
+            }
+          );
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Wishlist add failed"
+          );
+
+        }
+
+        window.location.reload();
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Wishlist Error:",
+        error
+      );
+
+    }
+  };
+
+  /* =========================
+     SHARE
+  ========================= */
+
+  const handleShare = async () => {
+
+    try {
+
+      if (navigator.share) {
+
+        await navigator.share({
+          title: product.title,
+          text: `Check out ${product.title} on Levioosa`,
+          url: window.location.href,
+        });
+
+      } else {
+
+        navigator.clipboard.writeText(
+          window.location.href
+        );
+
+        alert(
+          "Product link copied!"
+        );
+
+      }
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  };
+
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
@@ -71,112 +196,101 @@ const ProductDetail = () => {
       <div className="container mx-auto px-6 mb-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
-          {/* LEFT: Thumbnails */}
-         {/* LEFT: Desktop Thumbnails */}
-<div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
-  {product.images?.map((img, idx) => (
-    <div
-      key={idx}
-      onClick={() => setActiveImage(idx)}
-      className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${
-        activeImage === idx
-          ? "border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
-          : "border-white/5 opacity-40 hover:opacity-100"
-      }`}
-    >
-      <img
-        src={img}
-        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-        alt="View"
-      />
-    </div>
-  ))}
-</div>
+          {/* CENTER: Main Image + Mobile Slider */}
+          {/* LEFT: Desktop Thumbnails */}
+          <div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
+            {product.images?.map((img, idx) => (
+              <div
+                key={idx}
+                onClick={() => setActiveImage(idx)}
+                className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${activeImage === idx
+                  ? "border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+                  : "border-white/5 opacity-40 hover:opacity-100"
+                  }`}
+              >
+                <img
+                  src={img}
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  alt="View"
+                />
+              </div>
+            ))}
+          </div>
 
-{/* CENTER: Main Image + Mobile Slider */}
-{/* LEFT: Desktop Thumbnails */}
-<div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
-  {product.images?.map((img, idx) => (
-    <div
-      key={idx}
-      onClick={() => setActiveImage(idx)}
-      className={`aspect-[3/4] max-h-32 rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-500 ${
-        activeImage === idx
-          ? "border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
-          : "border-white/5 opacity-40 hover:opacity-100"
-      }`}
-    >
-      <img
-        src={img}
-        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-        alt="View"
-      />
-    </div>
-  ))}
-</div>
+          {/* CENTER: Main Image + Mobile Slider */}
+          <div className="lg:col-span-5">
 
-{/* CENTER: Main Image + Mobile Slider */}
-<div className="lg:col-span-5">
+            {/* MOBILE SLIDER */}
 
-  {/* MOBILE SLIDER */}
-  <div className="lg:hidden">
+            <div className="lg:hidden">
 
-    <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar gap-4 pb-3">
+              <div
+                className="
+      flex overflow-x-auto snap-x snap-mandatory
+      no-scrollbar gap-4 pb-3
+    "
+                onScroll={(e) => {
+                  const scrollLeft = e.currentTarget.scrollLeft;
+                  const width = e.currentTarget.clientWidth;
 
-      {product.images?.map((img, idx) => (
-        <div
-          key={idx}
-          className="min-w-full snap-center"
-        >
+                  const index = Math.round(scrollLeft / width);
 
-          <motion.div
-            whileTap={{ scale: 0.98 }}
-            className="
-              relative
-              aspect-[3/4]
-              bg-white/5
-              rounded-[2.5rem]
-              overflow-hidden
-              border border-white/10
-              backdrop-blur-sm
-            "
-          >
+                  setActiveImage(index);
+                }}
+              >
 
-            <img
-              src={img}
-              alt={product.title}
-              className="w-full h-full object-cover"
-            />
+                {product.images?.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className="min-w-full snap-center"
+                  >
 
-          </motion.div>
+                    <motion.div
+                      whileTap={{ scale: 0.98 }}
+                      className="
+            relative
+            aspect-[3/4]
+            bg-white/5
+            rounded-[2.5rem]
+            overflow-hidden
+            border border-white/10
+            backdrop-blur-sm
+          "
+                    >
 
-        </div>
-      ))}
+                      <img
+                        src={img}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                      />
 
-    </div>
+                    </motion.div>
 
-    {/* DOTS */}
-    <div className="flex justify-center gap-2 mt-5">
+                  </div>
+                ))}
 
-      {product.images?.map((_, idx) => (
-        <button
-          key={idx}
-          onClick={() => setActiveImage(idx)}
-          className={`transition-all duration-500 rounded-full ${
-            activeImage === idx
-              ? "w-8 h-2 bg-orange-500"
-              : "w-2 h-2 bg-white/20"
-          }`}
-        />
-      ))}
+              </div>
 
-    </div>
+              {/* DOTS */}
+              <div className="flex justify-center gap-2 mt-5">
 
-  </div>
+                {product.images?.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`transition-all duration-500 rounded-full ${activeImage === idx
+                      ? "w-8 h-2 bg-orange-500"
+                      : "w-2 h-2 bg-white/20"
+                      }`}
+                  />
+                ))}
 
-  {/* DESKTOP IMAGE */}
-  <motion.div
-    className="
+              </div>
+
+            </div>
+
+            {/* DESKTOP IMAGE */}
+            <motion.div
+              className="
       hidden lg:block
       relative
       aspect-[3/4]
@@ -188,39 +302,37 @@ const ProductDetail = () => {
       group
       backdrop-blur-sm
     "
-    onMouseMove={handleMouseMove}
-    onMouseLeave={() =>
-      setZoomPos({ ...zoomPos, show: false })
-    }
-  >
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() =>
+                setZoomPos({ ...zoomPos, show: false })
+              }
+            >
 
-    <img
-      src={product.images?.[activeImage] || product.image}
-      alt={product.title}
-      className={`w-full h-full object-cover transition-transform duration-700 ${
-        zoomPos.show
-          ? "scale-110 opacity-30"
-          : "scale-100 opacity-80"
-      }`}
-    />
+              <img
+                src={product.images?.[activeImage] || product.image}
+                alt={product.title}
+                className={`w-full h-full object-cover transition-transform duration-700 ${zoomPos.show
+                  ? "scale-110 opacity-30"
+                  : "scale-100 opacity-80"
+                  }`}
+              />
 
-    {zoomPos.show && (
-      <div
-        className="absolute inset-0 z-30 pointer-events-none"
-        style={{
-          backgroundImage: `url(${
-            product.images?.[activeImage] ||
-            product.image
-          })`,
-          backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
-          backgroundSize: "250%",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-    )}
+              {zoomPos.show && (
+                <div
+                  className="absolute inset-0 z-30 pointer-events-none"
+                  style={{
+                    backgroundImage: `url(${product.images?.[activeImage] ||
+                      product.image
+                      })`,
+                    backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
+                    backgroundSize: "250%",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                />
+              )}
 
-  </motion.div>
-</div>
+            </motion.div>
+          </div>
 
           {/* RIGHT: Product Info */}
           <div className="lg:col-span-6 flex flex-col justify-center">
@@ -238,8 +350,10 @@ const ProductDetail = () => {
                     </h1>
                   </div>
 
-                  <button className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center hover:border-orange-500 transition-all duration-500 group">
-                    <Share2 className="w-4 h-4 text-white/40 group-hover:text-orange-500 transition-colors" />
+                  <button
+                    onClick={handleShare}
+                    className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center hover:border-orange-500 transition-all duration-500 group"
+                  >                    <Share2 className="w-4 h-4 text-white/40 group-hover:text-orange-500 transition-colors" />
                   </button>
                 </div>
 
@@ -277,8 +391,8 @@ const ProductDetail = () => {
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`w-14 h-14 rounded-full border text-[10px] font-black tracking-tighter transition-all duration-500 flex items-center justify-center ${selectedSize === size
-                          ? "bg-orange-500 text-white border-orange-500 shadow-[0_0_25px_rgba(249,115,22,0.3)]"
-                          : "bg-white/5 border-white/10 text-white/40 hover:border-white hover:text-white"
+                        ? "bg-orange-500 text-white border-orange-500 shadow-[0_0_25px_rgba(249,115,22,0.3)]"
+                        : "bg-white/5 border-white/10 text-white/40 hover:border-white hover:text-white"
                         }`}
                     >
                       {size}
@@ -292,13 +406,67 @@ const ProductDetail = () => {
                 <button
                   onClick={handleAddToCart}
                   disabled={isAdding}
-                  className="flex-1 h-16 rounded-full bg-orange-500 text-white text-[11px] font-black uppercase tracking-[0.35em] hover:bg-orange-600 transition-all duration-500 shadow-[0_0_30px_rgba(249,115,22,0.25)] disabled:opacity-50"
+                  className={`
+    flex-1 h-16
+    group relative overflow-hidden
+    rounded-full
+    bg-white
+    transition-all duration-500
+    hover:bg-orange-500
+    shadow-[0_0_30px_rgba(249,115,22,0.15)]
+    ${isAdding ? "opacity-50 cursor-not-allowed" : ""}
+  `}
                 >
-                  {isAdding ? "Processing..." : "Add To Bag"}
+
+                  <span className="
+    relative z-10
+    text-black
+    group-hover:text-white
+    font-black
+    uppercase
+    text-[11px]
+    tracking-[0.5em]
+    transition-colors duration-500
+  ">
+                    {isAdding ? "Processing..." : "Add To Bag"}
+                  </span>
+
+                  {!isAdding && (
+                    <div className="
+      absolute inset-0
+      bg-orange-600
+      translate-y-full
+      group-hover:translate-y-0
+      transition-transform duration-500
+    " />
+                  )}
+
                 </button>
 
-                <button className="w-16 h-16 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center hover:border-red-500 transition-all duration-500 group">
-                  <Heart className="w-5 h-5 text-white/40 group-hover:text-red-500 transition-colors" />
+                <button
+                  onClick={handleWishlist}
+                  className={`
+    w-16 h-16 rounded-full border backdrop-blur-xl
+    flex items-center justify-center
+    transition-all duration-500 group
+
+    ${isWishlisted
+                      ? "bg-red-500/20 border-red-500"
+                      : "bg-white/5 border-white/10 hover:border-red-500"
+                    }
+  `}
+                >
+
+                  <Heart
+                    className={`
+      w-5 h-5 transition-colors
+      ${isWishlisted
+                        ? "text-red-500 fill-red-500"
+                        : "text-white/40 group-hover:text-red-500"
+                      }
+    `}
+                  />
+
                 </button>
               </div>
 
@@ -334,7 +502,7 @@ const ProductDetail = () => {
                 <div className="flex gap-3">
                   {/* Instagram */}
                   <a
-                    href="https://instagram.com/levioosa.uk"
+                    href="https://www.instagram.com/levioosa.wear?igsh=MXZ0NmlwOHIweWd3MA=="
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
@@ -358,7 +526,7 @@ const ProductDetail = () => {
 
                   {/* Facebook */}
                   <a
-                    href="https://facebook.com/levioosa.uk"
+                    href="https://www.facebook.com/share/18bLmmmcp6/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
@@ -380,7 +548,7 @@ const ProductDetail = () => {
 
                   {/* TikTok */}
                   <a
-                    href="https://tiktok.com/@levioosa.uk"
+                    href="https://www.tiktok.com/@levioosa.wear?_r=1&_t=ZS-96JjYatV8Wl"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-orange-500 transition-all duration-500"
@@ -429,14 +597,14 @@ const ProductExtraInfo = ({ product }) => {
           </h2>
         </header>
 
-       {/* TABS */}
-<div className="flex flex-wrap justify-center gap-4 md:gap-5 mb-16 md:mb-24">
+        {/* TABS */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-5 mb-16 md:mb-24">
 
-  {tabs.map((tab) => (
-    <button
-      key={tab}
-      onClick={() => setActiveTab(tab)}
-      className={`
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`
 
         px-8 md:px-12
         py-4 md:py-5
@@ -453,15 +621,14 @@ const ProductExtraInfo = ({ product }) => {
         transition-all duration-500
         border
 
-        ${
-          activeTab === tab
-            ? `
+        ${activeTab === tab
+                  ? `
               bg-white
               text-black
               border-white
               shadow-[0_0_30px_rgba(255,255,255,0.08)]
             `
-            : `
+                  : `
               bg-white/[0.03]
               text-white/35
               border-white/5
@@ -469,15 +636,15 @@ const ProductExtraInfo = ({ product }) => {
               hover:border-white/15
               hover:text-white
             `
-        }
+                }
 
       `}
-    >
-      {tab}
-    </button>
-  ))}
+            >
+              {tab}
+            </button>
+          ))}
 
-</div>
+        </div>
 
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
