@@ -7,5 +7,7 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/checkout", "/profile", "/orders"],
+  // ✅ '/checkout' ko yahan se delete kar diya hai
+  // Ab sirf profile aur orders wale pages hi login maangeinge
+  matcher: ["/profile", "/orders"],
 };

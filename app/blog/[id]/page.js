@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Head from "next/head"
 
 const BLOG_POSTS = {
   "1": {
@@ -112,62 +113,208 @@ const SingleBlogPost = () => {
   if (!post) return <div className="min-h-screen flex items-center justify-center text-white">Post not found...</div>;
 
   return (
+    <>
+
+
+      <Head>
+        <title>
+          {post.title} | Levioosa UK
+        </title>
+
+        <meta
+          name="description"
+          content={post.content.slice(0, 160)}
+        />
+
+        <meta
+          name="keywords"
+          content="
+      women's fashion,
+      fusion wear women,
+      western eastern fusion outfits,
+      minimalist fashion women,
+      summer outfits women 2026,
+      pakistani western wear,
+      modest fashion,
+      luxury women's clothing,
+      levioosa uk,
+      fusion fashion pakistan
+    "
+        />
+
+        <meta
+          property="og:title"
+          content={post.title}
+        />
+
+        <meta
+          property="og:description"
+          content={post.content.slice(0, 160)}
+        />
+
+        <meta
+          property="og:image"
+          content={post.image}
+        />
+
+        <meta
+          property="og:type"
+          content="article"
+        />
+
+        <meta
+          property="og:url"
+          content={`https://levioosa.uk/blog/${id}`}
+        />
+
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+        />
+
+        <meta
+          name="twitter:title"
+          content={post.title}
+        />
+
+        <meta
+          name="twitter:description"
+          content={post.content.slice(0, 160)}
+        />
+
+        <meta
+          name="twitter:image"
+          content={post.image}
+        />
+
+        <link
+          rel="canonical"
+          href={`https://levioosa.uk/blog/${id}`}
+        />
+
+        {/* BLOG STRUCTURED DATA */}
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context":
+                "https://schema.org",
+
+              "@type":
+                "BlogPosting",
+
+              headline:
+                post.title,
+
+              image:
+                post.image,
+
+              author: {
+                "@type":
+                  "Organization",
+                name:
+                  "Levioosa UK",
+              },
+
+              publisher: {
+                "@type":
+                  "Organization",
+
+                name:
+                  "Levioosa UK",
+
+                logo: {
+                  "@type":
+                    "ImageObject",
+
+                  url:
+                    "https://levioosa.uk/logo.png",
+                },
+              },
+
+              datePublished:
+                post.date,
+
+              description:
+                post.content.slice(
+                  0,
+                  200
+                ),
+
+              mainEntityOfPage: {
+                "@type":
+                  "WebPage",
+
+                "@id": `https://levioosa.uk/blog/${id}`,
+              },
+            }),
+          }}
+        />
+      </Head>
     /* Theme Upgrade: Background transparent taake global bg chale aur relative for positioning */
-    <main className="min-h-screen bg-transparent text-white pt-32 pb-20 px-6 md:px-12 font-sans relative overflow-hidden">
-      
-      {/* THEME ELEMENTS: Orange and Purple Aura Blobs added without changing structure */}
-      <div className="fixed inset-0 pointer-events-none z-[-1]">
-        <div className="absolute -left-[10%] top-[10%] w-[700px] h-[700px] bg-orange-600/10 blur-[130px] rounded-full opacity-50" />
-        <div className="absolute -right-[10%] top-[30%] w-[600px] h-[600px] bg-purple-600/10 blur-[120px] rounded-full opacity-30" />
-      </div>
+      <main className="min-h-screen bg-transparent text-white pt-32 pb-20 px-6 md:px-12 font-sans relative overflow-hidden">
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        
-        <button 
-          onClick={() => router.back()}
-          className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ff4d00] mb-12 hover:text-white transition-colors"
-        >
-          ← Back to Archive
-        </button>
+        {/* THEME ELEMENTS: Orange and Purple Aura Blobs added without changing structure */}
+        <div className="fixed inset-0 pointer-events-none z-[-1]">
+          <div className="absolute -left-[10%] top-[10%] w-[700px] h-[700px] bg-orange-600/10 blur-[130px] rounded-full opacity-50" />
+          <div className="absolute -right-[10%] top-[30%] w-[600px] h-[600px] bg-purple-600/10 blur-[120px] rounded-full opacity-30" />
+        </div>
 
-        <motion.header 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-6 mb-12"
-        >
-          <span className="bg-[#ff4d00] text-black text-[9px] font-black tracking-widest uppercase px-4 py-1 rounded-sm">
-            {post.category}
-          </span>
-          <h1 className="text-4xl md:text-7xl font-black italic tracking-tighter uppercase leading-tight text-white">
-            {post.title}
-          </h1>
-          <p className="text-white/40 text-xs font-bold tracking-[0.2em]">{post.date} — BY LEVIOOSA TEAM</p>
-        </motion.header>
+        <div className="max-w-4xl mx-auto relative z-10">
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }} 
-          animate={{ opacity: 1, scale: 1 }}
-          className="aspect-video w-full rounded-3xl overflow-hidden mb-16 border border-white/5 bg-zinc-900/40 backdrop-blur-sm"
-        >
-          <img 
-            src={post.image} 
-            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" 
-            alt="summer outfits for women 2026 western eastern fusion fashion Levioosa"
-          />
-        </motion.div>
+          <button
+            onClick={() => router.back()}
+            className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ff4d00] mb-12 hover:text-white transition-colors"
+          >
+            ← Back to Archive
+          </button>
 
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="prose prose-invert max-w-none"
-        >
-          <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light whitespace-pre-line">
+          <motion.header
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6 mb-12"
+          >
+            <span className="bg-[#ff4d00] text-black text-[9px] font-black tracking-widest uppercase px-4 py-1 rounded-sm">
+              {post.category}
+            </span>
+            <h1 className="text-4xl md:text-7xl font-black italic tracking-tighter uppercase leading-tight text-white">
+              {post.title}
+            </h1>
+            <p className="text-white/40 text-xs font-bold tracking-[0.2em]">{post.date} — BY LEVIOOSA TEAM</p>
+          </motion.header>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="aspect-video w-full rounded-3xl overflow-hidden mb-16 border border-white/5 bg-zinc-900/40 backdrop-blur-sm"
+          >
+            <img
+              src={post.image}
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+              alt={post.title}
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="prose prose-invert max-w-none"
+          >
+            <p className="
+            text-lg md:text-2xl
+            text-white/80
+            leading-[2]
+            font-light
+            whitespace-pre-line
+            tracking-wide
+">
             {post.content}
           </p>
         </motion.div>
 
-       
+
 
         {/* Footer CTA */}
         <div className="mt-20 pt-12 border-t border-white/10 text-center">
@@ -180,8 +327,9 @@ const SingleBlogPost = () => {
         </div>
 
       </div>
-    </main>
-  );
+    </main >
+      </>
+      );
 };
 
 export default SingleBlogPost;

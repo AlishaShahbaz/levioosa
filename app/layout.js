@@ -138,7 +138,7 @@ export default function RootLayout({ children }) {
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-NDY45HDVVL"
-        ></script>
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
