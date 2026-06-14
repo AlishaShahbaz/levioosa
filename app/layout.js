@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import CartSidebar from "../components/CartSidebar";
 import { CartProvider } from "../context/CartContext";
 import { AppProvider } from "../context/AppContext";
+import Script from "next/script";
 import { AuthProvider } from "../context/AuthContext";
 
 const geistSans = Geist({
