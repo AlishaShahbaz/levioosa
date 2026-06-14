@@ -149,7 +149,8 @@ export default function RootLayout({ children }) {
     `,
           }}
         />
-        <!-- Meta Pixel Code -->
+        
+{/* Meta Pixel Code  */}
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -165,7 +166,7 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1543850110419056&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
+
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} bg-[#050505] text-white min-h-screen flex flex-col`}>
         <AuthProvider>
